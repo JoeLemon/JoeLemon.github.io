@@ -2548,7 +2548,7 @@ body .well-material-teal,
 body .jumbotron-material-teal,
 .container .jumbotron-material-teal,
 .container-fluid .jumbotron-material-teal {
-  background-color: #005C64;
+  background-color: #009688;
 }
 body .well-material-lightgreen,
 .container .well-material-lightgreen,
@@ -2687,7 +2687,7 @@ body .jumbotron-material-lightgrey,
   background-color: #00bcd4;
 }
 .btn-material-teal:not(.btn-link) {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .btn-material-lightgreen:not(.btn-link) {
   background-color: #8bc34a;
@@ -2813,7 +2813,7 @@ body .jumbotron-material-lightgrey,
 }
 .btn.btn-fab-material-teal,
 .btn.btn-fab:hover-material-teal {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .btn.btn-fab-material-lightgreen,
 .btn.btn-fab:hover-material-lightgreen {
@@ -2920,7 +2920,7 @@ body .jumbotron-material-lightgrey,
   background-color: #00bcd4;
 }
 .open > .dropdown-toggle.btn-material-teal {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .open > .dropdown-toggle.btn-material-lightgreen {
   background-color: #8bc34a;
@@ -3115,7 +3115,7 @@ body .jumbotron-material-lightgrey,
   background-color: #00bcd4;
 }
 .checkbox-material-teal input[type=checkbox]:checked ~ .check:after {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .checkbox-material-lightgreen input[type=checkbox]:checked ~ .check:after {
   background-color: #8bc34a;
@@ -3185,7 +3185,7 @@ body .jumbotron-material-lightgrey,
   color: #00bcd4;
 }
 .checkbox-material-teal input[type=checkbox]:checked ~ .check:before {
-  color: #005C64;
+  color: #009688;
 }
 .checkbox-material-lightgreen input[type=checkbox]:checked ~ .check:before {
   color: #8bc34a;
@@ -3255,7 +3255,7 @@ body .jumbotron-material-lightgrey,
   color: #00bcd4;
 }
 .checkbox-material-teal input[type=checkbox]:checked ~ .check {
-  color: #005C64;
+  color: #009688;
 }
 .checkbox-material-lightgreen input[type=checkbox]:checked ~ .check {
   color: #8bc34a;
@@ -3429,7 +3429,7 @@ body .jumbotron-material-lightgrey,
   background-color: #00bcd4;
 }
 .radio-material-teal input[type=radio]:checked ~ .check {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .radio-material-lightgreen input[type=radio]:checked ~ .check {
   background-color: #8bc34a;
@@ -3499,7 +3499,7 @@ body .jumbotron-material-lightgrey,
   border-color: #00bcd4;
 }
 .radio-material-teal input[type=radio]:checked ~ .circle {
-  border-color: #005C64;
+  border-color: #009688;
 }
 .radio-material-lightgreen input[type=radio]:checked ~ .circle {
   border-color: #8bc34a;
@@ -3776,7 +3776,7 @@ select[multiple].form-control.focus {
   background-color: #00bcd4;
 }
 .form-group-material-teal .material-input:before {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .form-group-material-lightgreen .material-input:before {
   background-color: #8bc34a;
@@ -3846,7 +3846,7 @@ select[multiple].form-control.focus {
   background-color: #00bcd4;
 }
 .form-group-material-teal input.form-control:focus ~ .material-input:after {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .form-group-material-lightgreen input.form-control:focus ~ .material-input:after {
   background-color: #8bc34a;
@@ -3916,7 +3916,7 @@ select[multiple].form-control.focus {
   background-color: #00bcd4;
 }
 .form-group-material-teal input.form-control.focus ~ .material-input:after {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .form-group-material-lightgreen input.form-control.focus ~ .material-input:after {
   background-color: #8bc34a;
@@ -3986,7 +3986,7 @@ select[multiple].form-control.focus {
   color: #00bcd4;
 }
 .form-group-material-teal .control-label {
-  color: #005C64;
+  color: #009688;
 }
 .form-group-material-lightgreen .control-label {
   color: #8bc34a;
@@ -4056,7 +4056,7 @@ select[multiple].form-control.focus {
   color: #00bcd4;
 }
 .form-group-material-teal input.form-control:not(.empty) ~ .floating-label {
-  color: #005C64;
+  color: #009688;
 }
 .form-group-material-lightgreen input.form-control:not(.empty) ~ .floating-label {
   color: #8bc34a;
@@ -4412,7 +4412,7 @@ fieldset[disabled] .navbar .btn-link:focus {
   background-color: #00bcd4;
 }
 .navbar-material-teal {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .navbar-material-lightgreen {
   background-color: #8bc34a;
@@ -4547,7 +4547,7 @@ fieldset[disabled] .navbar .btn-link:focus {
   color: #00bcd4;
 }
 .dropdown-menu-material-teal li a:hover {
-  color: #005C64;
+  color: #009688;
 }
 .dropdown-menu-material-lightgreen li a:hover {
   color: #8bc34a;
@@ -4625,7 +4625,7 @@ fieldset[disabled] .navbar .btn-link:focus {
   background-color: #00bcd4;
 }
 .alert-material-teal {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .alert-material-lightgreen {
   background-color: #8bc34a;
@@ -4714,7 +4714,7 @@ fieldset[disabled] .navbar .btn-link:focus {
   background-color: #00bcd4;
 }
 .progress .progress-bar-material-teal {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .progress .progress-bar-material-lightgreen {
   background-color: #8bc34a;
@@ -4858,7 +4858,7 @@ fieldset[disabled] .navbar .btn-link:focus {
   color: #00bcd4;
 }
 .icon-material-teal {
-  color: #005C64;
+  color: #009688;
 }
 .icon-material-lightgreen {
   color: #8bc34a;
@@ -5136,7 +5136,7 @@ fieldset[disabled] .navbar .btn-link:focus {
   background-color: #00bcd4;
 }
 .slider-material-teal.noUi-connect {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .slider-material-lightgreen.noUi-connect {
   background-color: #8bc34a;
@@ -5206,7 +5206,7 @@ fieldset[disabled] .navbar .btn-link:focus {
   background-color: #00bcd4;
 }
 .slider-material-teal .noUi-connect {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .slider-material-lightgreen .noUi-connect {
   background-color: #8bc34a;
@@ -5276,7 +5276,7 @@ fieldset[disabled] .navbar .btn-link:focus {
   background-color: #00bcd4;
 }
 .slider-material-teal .noUi-handle {
-  background-color: #005C64;
+  background-color: #009688;
 }
 .slider-material-lightgreen .noUi-handle {
   background-color: #8bc34a;
@@ -5346,7 +5346,7 @@ fieldset[disabled] .navbar .btn-link:focus {
   border-color: #00bcd4;
 }
 .slider-material-teal .noUi-handle {
-  border-color: #005C64;
+  border-color: #009688;
 }
 .slider-material-lightgreen .noUi-handle {
   border-color: #8bc34a;
