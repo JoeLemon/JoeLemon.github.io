@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="前端开发, 个人博客" />
+  <meta name="keywords" content="SVG," />
 
 
 
@@ -84,15 +84,62 @@
 
 
 
-<meta name="description" content="柠檬树 | JoeLemon | 前端开发">
-<meta property="og:type" content="website">
-<meta property="og:title" content="柠檬树">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="SVG简介简介
+SVG是使用XML描述的矢量文件
+W3C标准（1.1）
+浏览器支持情况使用方式
+浏览器直接打开
+使用HTML的标签引用
+使用HTML的SVG标签
+作为CSS背景
+
+基本图形和属性基本图形&amp;lt;rect&amp;gt;      矩形
+&amp;lt;circle&amp;gt;    圆形
+&amp;lt;ellipse&amp;gt;   椭圆
+&amp;lt;line&amp;gt;      直线
+&amp;lt;polyline&amp;gt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SVG技术入门">
+<meta property="og:url" content="http://yoursite.com/2016/08/17/SVG入门/index.html">
 <meta property="og:site_name" content="柠檬树">
-<meta property="og:description" content="柠檬树 | JoeLemon | 前端开发">
+<meta property="og:description" content="SVG简介简介
+SVG是使用XML描述的矢量文件
+W3C标准（1.1）
+浏览器支持情况使用方式
+浏览器直接打开
+使用HTML的标签引用
+使用HTML的SVG标签
+作为CSS背景
+
+基本图形和属性基本图形&amp;lt;rect&amp;gt;      矩形
+&amp;lt;circle&amp;gt;    圆形
+&amp;lt;ellipse&amp;gt;   椭圆
+&amp;lt;line&amp;gt;      直线
+&amp;lt;polyline&amp;gt">
+<meta property="og:image" content="http://yoursite.com/rect.png">
+<meta property="og:image" content="http://yoursite.com/circle.png">
+<meta property="og:image" content="http://yoursite.com/ellipse.png">
+<meta property="og:image" content="http://yoursite.com/line.png">
+<meta property="og:image" content="http://yoursite.com/polyline.png">
+<meta property="og:image" content="http://yoursite.com/polygon.png">
+<meta property="og:updated_time" content="2016-09-12T01:27:55.989Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="柠檬树">
-<meta name="twitter:description" content="柠檬树 | JoeLemon | 前端开发">
+<meta name="twitter:title" content="SVG技术入门">
+<meta name="twitter:description" content="SVG简介简介
+SVG是使用XML描述的矢量文件
+W3C标准（1.1）
+浏览器支持情况使用方式
+浏览器直接打开
+使用HTML的标签引用
+使用HTML的SVG标签
+作为CSS背景
+
+基本图形和属性基本图形&amp;lt;rect&amp;gt;      矩形
+&amp;lt;circle&amp;gt;    圆形
+&amp;lt;ellipse&amp;gt;   椭圆
+&amp;lt;line&amp;gt;      直线
+&amp;lt;polyline&amp;gt">
+<meta name="twitter:image" content="http://yoursite.com/rect.png">
 
 
 
@@ -113,9 +160,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/17/SVG入门/"/>
 
-  <title> 柠檬树 </title>
+  <title> SVG技术入门 | 柠檬树 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -136,9 +183,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -225,9 +270,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -247,10 +292,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/08/17/SVG入门/" itemprop="url">
-                  SVG技术入门
-                </a>
+                SVG技术入门
               
             
           </h1>
@@ -297,9 +339,7 @@
       
 
       
-        
-          
-            <h2 id="SVG简介"><a href="#SVG简介" class="headerlink" title="SVG简介"></a>SVG简介</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><ul>
+        <h2 id="SVG简介"><a href="#SVG简介" class="headerlink" title="SVG简介"></a>SVG简介</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><ul>
 <li>SVG是使用XML描述的矢量文件</li>
 <li><a href="http://www.w3.org/TR/SVG11" target="_blank" rel="external">W3C标准（1.1）</a></li>
 <li><a href="http://caniuse.com/#cats=SVG" target="_blank" rel="external">浏览器支持情况</a><h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3></li>
@@ -340,161 +380,59 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">element.setAttribute(name,value)</div><div class="line">element.getAttribute(name)</div></pre></td></tr></table></figure>
 <p><a href="/SVG-Editor.html">SVG编辑器</a></p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/13/Sketch/" itemprop="url">
-                  自述前端入门
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-13T14:27:55+08:00" content="2016-08-13">
-              2016-08-13
-            </time>
-          </span>
-
+        <div class="post-tags">
           
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/13/Sketch/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/13/Sketch/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
+            <a href="/tags/SVG/" rel="tag">#SVG</a>
           
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h2 id="序"><a href="#序" class="headerlink" title="#序"></a>#序</h2><h3 id="我的自学之路"><a href="#我的自学之路" class="headerlink" title="我的自学之路"></a>我的自学之路</h3><p>作为一名标准的工科狗，我来分享下如何走向程序员这条不归路。</p>
-<p>说来惭愧，在2016年之前，本人与代码的交集只有江苏省计算机二级证书这一个而已，尽管在大二的时候作死报了个计算机科学与技术的二学历，但是因为是学校第一次组织，课程安排对于我这种毫无基础的人而言太过残暴，虽然熬过了第一学年，但是被任课老师直接透题的做法惊到了，其实现在看来当初努力点并坚持下来的话，结果未尝不可能不会是个happy ending，但是还是放弃掉了。</p>
-<p>16年，工作已有半年，在工作中发现现有的一部分工作就是单纯的完善Excel表格，而且一个项目下来，要做的表格简直多到令人发指，这些表格大部分都是依照模板进行编写的，做得多了，这东西就比较令人眼花缭乱，容易出错不说，如果错了再改正的话很容易遗漏，费神费力的事情，于是和一个比较擅长Excel的小伙伴（也就是我师傅）天天晚上加班倒腾Excel公式，利用一些基本的判断来填表。</p>
-<p>说来你们看官可能对这项工作呲之以鼻，但是对于未跨入编程大门的农村人而言，这活简直绝了，因为Excel公式自带的功能极其有限，多分支判断这么简单的功能需要写一长坨代码，而且数据同步几乎靠传递，神知道它是传值还是传址。历时将近3个月吧，终于把第一版倒腾出来了，反正倒腾过程中，我们俩就有预感，这东西不一定能跑动（话说我前公司虽然是个世界500强的大国企，但是我们用的还是奔4的电脑，你敢信！新电脑按资历依次向下淘汰，也就是说，作为部门最晚入职的我，应该用的是最差的电脑，forever，如果没有新员工来的话，so sad）。试用的时候果然没让我们失望，偷偷在领导电脑上打开为一个小项目匹配的一个总表，两个包含30+sheet的分表之后，领导电脑死机了。。。</p>
-<p>补充一下，其实这套系统（姑且称之为系统），不仅仅能监测勾选啊，下拉选框啊，多选啊来更新子表格的数据，更奇葩的是我们倒腾了个camera的表格，可以根据数据自己添加工程图！碉堡了有没有！</p>
-<p>但是，你说对了，这东西并没有什么卵用，如果当时知道有VBA这种东西，配合一点数据库，说不定就可以干成这件大事，升职加薪！迎娶白富美！走向人生巅峰！！！</p>
-<p>呵呵呵，国企里面，你懂得。</p>
-<p>然后，本汪就对编程产生了浓厚的性趣。。。兴趣，于是业余看看安卓开发什么的，于是开始倒腾安卓，环境搭建，虚拟机，还把大学的Java课本翻出来啃了几遍，在搞出来一个hello world APP之后，接到了老婆的最后通牒：要不就来南京，要不就分手！</p>
-<p>讲了好多乱七八糟的。算了，不展开了。个中辛酸。</p>
-<p>下面来说说这几个月的学习成果以及对于初学者的建议：</p>
-<p>我在开始的时候最先开始啃的是《CSS权威指南》和《JavaScript权威指南》，我要告诉你，这是个坑！！啃了一个多月，记了一堆笔记，坐在电脑前，看着输入光标一闪一闪，还是什么都打不出来。</p>
-<p>我觉得把学编程比喻成学游泳简直太贴切了，我只恨没早点看到这句话。</p>
-<p>后来又看了《疯狂HTML5、CSS3、JavaScript讲义》，《JavaScript高级程序设计》，《CSS Secrets》等等，但事实证明，光啃书根本不行，尽管我跟着慕课网写了点项目，这涉及到另外一个坑。</p>
-<p>好吧，我来说说我的总结，不谈血泪史，好多看过的书都忘光了快。</p>
-<p>郑重推荐<a href="https://www.freecodecamp.cn" target="_blank" rel="external">freecodecamp</a>，我好多东西都是在那上面接触的，而且你会发现它提供的参考资料网站<a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="external">Mozilla</a>也很好用。除了freecodecamp之外，<a href="https://www.imooc.com" target="_blank" rel="external">慕课网</a>也是很值得推荐的，基本上跟着这两个网站学就差不多了。还有同学推荐百度前端学院，如果能敲得下去代码也是个好地方，百度搜索即可。</p>
-<p>补充的资料，除了上面的Mozilla开发者网络之外呢，还有<a href="http://www.w3school.com.cn/" target="_blank" rel="external">W3C school</a>查询API好地方，codepen是和freecodecamp配套的，都能接触到就不啰嗦了。</p>
-<p>下面推荐良心的博客：</p>
-<ul>
-<li><a href="http://www.zhangxinxu.com/" target="_blank" rel="external">张鑫旭</a></li>
-<li><a href="http://www.ruanyifeng.com/home.html" target="_blank" rel="external">阮一峰</a></li>
-<li><a href="http://www.liaoxuefeng.com/" target="_blank" rel="external">廖雪峰</a></li>
-</ul>
-<p>反正本人受益良多。</p>
-<p>我在简历里面加入了这个链接，求工作啊~</p>
-<p>谢谢各位老爷！千里之行始于足下，好好学习天天向上！（话说我不爱学习的毛病就是<a href="http://www.shanbay.com" target="_blank" rel="external">扇贝单词</a>赶紧去注册下载吧！）</p>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/13/Sketch/" rel="next" title="自述前端入门">
+                <i class="fa fa-chevron-left"></i> 自述前端入门
+              </a>
+            
+          </div>
 
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -502,6 +440,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/17/SVG入门/"
+           data-title="SVG技术入门" data-url="http://yoursite.com/2016/08/17/SVG入门/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -521,8 +467,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -585,6 +540,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SVG简介"><span class="nav-number">1.</span> <span class="nav-text">SVG简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方式"><span class="nav-number">1.2.</span> <span class="nav-text">使用方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本图形和属性"><span class="nav-number">2.</span> <span class="nav-text">基本图形和属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本图形"><span class="nav-number">2.1.</span> <span class="nav-text">基本图形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本属性"><span class="nav-number">2.2.</span> <span class="nav-text">基本属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本操作API"><span class="nav-number">3.</span> <span class="nav-text">基本操作API</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -688,6 +654,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
