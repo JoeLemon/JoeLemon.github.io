@@ -1,0 +1,192 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java"><title>Java多线程 | JoeLemon</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Java多线程</h1><a id="logo" href="/.">JoeLemon</a><p class="description">一头程序员的羊皮纸</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Start</i></a><a href="/archives/"><i class="fa fa-archive"> Archiv</i></a><a href="/about/"><i class="fa fa-user"> Über</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Java多线程</h1><div class="post-meta">Aug 22, 2018</div><div class="post-content"><h1 id="Java多线程"><a href="#Java多线程" class="headerlink" title="Java多线程"></a>Java多线程</h1><h2 id="创建线程方式"><a href="#创建线程方式" class="headerlink" title="创建线程方式"></a>创建线程方式</h2><ol>
+<li>继承Thread类</li>
+<li>实现Runnable接口(优先)<blockquote>
+<p>重写run方法，并把Runnable实例传给Thread对象，Thread的start方法调用run方法再通过调用Runnable实例的run方法启动线程。</p>
+</blockquote>
+</li>
+<li>实现Callable接口<ul>
+<li><blockquote>
+<p>重写call方法，并把Callable实例传给FutureTask对象，再把FutureTask对象传给Thread对象。</p>
+</blockquote>
+</li>
+<li><blockquote>
+<p>它与Thread、Runnable最大的不同是Callable能返回一个异步处理的结果Future对象并能抛出异常，而其他两种不能。<br>Future方法： get | cancel | isDone | isCancelled</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="start-amp-run"><a href="#start-amp-run" class="headerlink" title="start() &amp; run()"></a>start() &amp; run()</h2><p>只有调用了start()方法，才会表现出多线程的特性，不同线程的run()方法里面的代码交替执行。如果只是调用run()方法，那么代码还是同步执行的，必须等待一个线程的run()方法里面的代码全部执行完毕之后，另外一个线程才可以执行其run()方法里面的代码。</p>
+<h2 id="Runnable接口-amp-Callable接口"><a href="#Runnable接口-amp-Callable接口" class="headerlink" title="Runnable接口 &amp; Callable接口"></a>Runnable接口 &amp; Callable接口</h2><p>Runnable接口中的run()方法的返回值是void，它做的事情只是纯粹地去执行run()方法中的代码而已；Callable接口中的call()方法是有返回值的，是一个泛型，和Future、FutureTask配合可以用来获取异步执行的结果。</p>
+<p>这其实是很有用的一个特性，因为<strong>多线程相比单线程更难、更复杂的一个重要原因就是因为多线程充满着未知性</strong>，某条线程是否执行了？某条线程执行了多久？某条线程执行的时候我们期望的数据是否已经赋值完毕？无法得知，我们能做的只是等待这条多线程的任务执行完毕而已。而Callable+Future/FutureTask却可以获取多线程运行的结果，可以在等待时间太长没获取到需要的数据的情况下取消该线程的任务，真的是非常有用。</p>
+<h2 id="CyclicBarrier-amp-CountDownLatch"><a href="#CyclicBarrier-amp-CountDownLatch" class="headerlink" title="CyclicBarrier &amp; CountDownLatch"></a>CyclicBarrier &amp; CountDownLatch</h2><p>都在java.util.concurrent下，都可以用来表示代码运行到某个点上，二者的区别在于：</p>
+<ol>
+<li>CyclicBarrier的某个线程运行到某个点上之后，该线程即停止运行，直到所有的线程都到达了这个点，所有线程才重新运行；CountDownLatch则不是，某线程运行到某个点上之后，只是给某个数值-1而已，该线程继续运行。</li>
+<li>CyclicBarrier只能唤起一个任务，CountDownLatch可以唤起多个任务。</li>
+<li>CyclicBarrier可重用，CountDownLatch不可重用，计数值为0该CountDownLatch就不可再用了。</li>
+</ol>
+<h2 id="volatile关键字"><a href="#volatile关键字" class="headerlink" title="volatile关键字"></a>volatile关键字</h2><ol>
+<li><p>多线程主要围绕可见性和原子性两个特性而展开，使用volatile关键字修饰的变量，保证了其在多线程之间的可见性，即每次读取到volatile变量，一定是最新的数据。</p>
+</li>
+<li><p>代码底层执行不像我们看到的高级语言—-Java程序这么简单，它的执行是Java代码–&gt;字节码–&gt;根据字节码执行对应的C/C++代码–&gt;C/C++代码被编译成汇编语言–&gt;和硬件电路交互，现实中，为了获取更好的性能JVM可能会对指令进行重排序，多线程下可能会出现一些意想不到的问题。使用volatile则会对禁止语义重排序，当然这也一定程度上降低了代码执行效率。</p>
+</li>
+</ol>
+<p>从实践角度而言，volatile的一个重要作用就是和CAS结合，保证了原子性，详细的可以参见java.util.concurrent.atomic包下的类，比如AtomicInteger。</p>
+<h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><p>volatile可以看成是synchronized的一种轻量级的实现，但volatile并不能完全代替synchronized，volatile有synchronized可见性的特性，但没有synchronized原子性的特性。可见性即，用volatile关键字修饰的成员变量表明该变量不存在工作线程的副本，线程每次直接都从主内存中读取，每次读取的都是最新的值，这也就保证了变量对其他线程的可见性。另外，使用volatile还能确保变量不能被重排序，保证了有序性。</p>
+<p>volatile只用修饰一个成员变量，volatile比synchronized编程更容易且开销更小，但具有一点的使用局限性，使用要相当小心，不能当锁使用。volatile不会像synchronized一样阻塞程序，如果是读操作远多于写操作的情况可以建议使用volatile，它会有更好的性能。</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>如果正确使用volatile的话，必须依赖下以下种条件：</p>
+<ol>
+<li>对变量的写操作不依赖当前变量的值；</li>
+<li>该变量没有包含在其他变量的不变式中。</li>
+</ol>
+<p>第1个条件就说明了volatile不是原子性的操作，不能使用n++类似的计数器，它不是线程安全的。</p>
+<h4 id="状态的改变"><a href="#状态的改变" class="headerlink" title="状态的改变"></a>状态的改变</h4><p>读取最新的状态：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> isStop = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">stopit</span><span class="params">()</span></span>&#123;</span><br><span class="line">        isStop = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        stopit();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> TestThread()).start();</span><br><span class="line">        <span class="keyword">while</span> (!isStop)&#123;</span><br><span class="line">            System.out.println(<span class="string">"Running here"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"**** STOP ****"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="读多写少的情况"><a href="#读多写少的情况" class="headerlink" title="读多写少的情况"></a>读多写少的情况</h4><p>假设这样一种场景，有N个线程在读取变量的值，只有一个线程写变量的值，这时候就能保证读线程的可见性，又能保证写线程的线程安全问题。</p>
+<p>像n++不是原子类的操作，其实可以通过synchronized对写方法锁住，再用volatile修饰变量，这样就保证了读线程对变量的可见性，又保证了变量的原子性。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestThread2</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">        n++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> TestThread2()).start();</span><br><span class="line">        <span class="keyword">while</span> (n&lt;<span class="number">100</span>)&#123;</span><br><span class="line">            System.out.println(<span class="string">"ADDing"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"*** STOP ***"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Thread.sleep(<span class="number">3000</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">200</span>; i++) &#123;</span><br><span class="line">            add();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>如果你的代码在多线程下执行和在单线程下执行永远都能获得一样的结果，那么你的代码就是线程安全的。</p>
+<h3 id="不可变"><a href="#不可变" class="headerlink" title="不可变"></a>不可变</h3><p>像String、Integer、Long这些，都是final类型的类，任何一个线程都改变不了它们的值，要改变除非新创建一个，因此这些不可变对象不需要任何同步手段就可以直接在多线程环境下使用</p>
+<h3 id="绝对线程安全"><a href="#绝对线程安全" class="headerlink" title="绝对线程安全"></a>绝对线程安全</h3><p>不管运行时环境如何，调用者都不需要额外的同步措施。要做到这一点通常需要付出许多额外的代价，Java中标注自己是线程安全的类，实际上绝大多数都不是线程安全的，不过绝对线程安全的类，Java中也有，比方说CopyOnWriteArrayList、CopyOnWriteArraySet</p>
+<h3 id="相对线程安全"><a href="#相对线程安全" class="headerlink" title="相对线程安全"></a>相对线程安全</h3><p>相对线程安全也就是我们通常意义上所说的线程安全，像Vector这种，add、remove方法都是原子操作，不会被打断，但也仅限于此，如果有个线程在遍历某个Vector、有个线程同时在add这个Vector，99%的情况下都会出现ConcurrentModificationException，也就是fail-fast机制。</p>
+<p>** java中fail-fast 和 fail-safe</p>
+<blockquote>
+<p>fail-fast机制在遍历一个集合时，当集合结构被修改，会抛出Concurrent Modification Exception。</p>
+<ul>
+<li>检测机制<br>迭代器在遍历过程中是直接访问内部数据的，因此内部的数据在遍历的过程中无法被修改。为了保证不被修改，迭代器内部维护了一个标记 “mode” ，当集合结构改变（添加删除或者修改），标记”mode”会被修改，而迭代器每次的hasNext()和next()方法都会检查该”mode”是否被改变，当检测到被修改时，抛出Concurrent Modification Exception</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>fail-safe任何对集合结构的修改都会在一个复制的集合上进行修改，因此不会抛出ConcurrentModificationException<br>fail-safe机制有两个问题</p>
+<ol>
+<li>需要复制集合，产生大量的无效对象，开销大</li>
+<li>无法保证读取的数据是目前原始数据结构中的数据。</li>
+</ol>
+</blockquote>
+<p>举例： fail-fast [HashMap] | fail-safe [ConcurrentHashMap]</p>
+<h3 id="线程非安全"><a href="#线程非安全" class="headerlink" title="线程非安全"></a>线程非安全</h3><p>这个就没什么好说的了，ArrayList、LinkedList、HashMap等都是线程非安全的类，点击这里了解为什么不安全。</p>
+<h2 id="dump-文件"><a href="#dump-文件" class="headerlink" title="dump 文件"></a>dump 文件</h2><p>死循环、死锁、阻塞、页面打开慢等问题，打线程dump是最好的解决问题的途径。所谓线程dump也就是线程堆栈，获取到线程堆栈有两步：</p>
+<ol>
+<li>获取到线程的pid，可以通过使用jps命令，在Linux环境下还可以使用ps -ef | grep java</li>
+<li>打印线程堆栈，可以通过使用jstack pid命令，在Linux环境下还可以使用kill -3 pid</li>
+</ol>
+<p>另外提一点，Thread类提供了一个getStackTrace()方法也可以用于获取线程堆栈。这是一个实例方法，因此此方法是和具体线程实例绑定的，每次获取获取到的是具体某个线程当前运行的堆栈。</p>
+<h2 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h2><h3 id="ConcurrentHashMap的并发度是什么"><a href="#ConcurrentHashMap的并发度是什么" class="headerlink" title="ConcurrentHashMap的并发度是什么"></a>ConcurrentHashMap的并发度是什么</h3><p>ConcurrentHashMap的并发度就是segment的大小，默认为16，这意味着最多同时可以有16条线程操作ConcurrentHashMap，这也是ConcurrentHashMap对Hashtable的最大优势，任何情况下，Hashtable能同时有两条线程获取Hashtable中的数据</p>
+<h3 id="一个线程如果出现了运行时异常会怎么样"><a href="#一个线程如果出现了运行时异常会怎么样" class="headerlink" title="一个线程如果出现了运行时异常会怎么样"></a>一个线程如果出现了运行时异常会怎么样</h3><p>如果这个异常没有被捕获的话，这个线程就停止执行了。另外重要的一点是：如果这个线程持有某个某个对象的监视器，那么这个对象监视器会被立即释放</p>
+<h3 id="如何在两个线程之间共享数据"><a href="#如何在两个线程之间共享数据" class="headerlink" title="如何在两个线程之间共享数据"></a>如何在两个线程之间共享数据</h3><p>通过在线程之间共享对象就可以了，然后通过wait/notify/notifyAll、await/signal/signalAll进行唤起和等待，比方说阻塞队列BlockingQueue就是为线程之间共享数据而设计的</p>
+<h3 id="sleep方法和wait方法有什么区别"><a href="#sleep方法和wait方法有什么区别" class="headerlink" title="sleep方法和wait方法有什么区别"></a>sleep方法和wait方法有什么区别</h3><p>这个问题常问，sleep方法和wait方法都可以用来放弃CPU一定的时间，不同点在于如果线程持有某个对象的监视器，sleep方法不会放弃这个对象的监视器，wait方法会放弃这个对象的监视器</p>
+<p>###　生产者消费者模型的作用是什么</p>
+<p>这个问题很理论，但是很重要：</p>
+<ol>
+<li><p>通过平衡生产者的生产能力和消费者的消费能力来提升整个系统的运行效率，这是生产者消费者模型最重要的作用</p>
+</li>
+<li><p>解耦，这是生产者消费者模型附带的作用，解耦意味着生产者和消费者之间的联系少，联系越少越可以独自发展而不需要收到相互的制约</p>
+</li>
+</ol>
+<h3 id="ThreadLocal有什么用"><a href="#ThreadLocal有什么用" class="headerlink" title="ThreadLocal有什么用"></a>ThreadLocal有什么用</h3><p>简单说ThreadLocal就是一种以空间换时间的做法，在每个Thread里面维护了一个以开地址法实现的ThreadLocal.ThreadLocalMap，把数据进行隔离，数据不共享，自然就没有线程安全方面的问题了</p>
+<h3 id="为什么wait-方法和notify-notifyAll-方法要在同步块中被调用"><a href="#为什么wait-方法和notify-notifyAll-方法要在同步块中被调用" class="headerlink" title="为什么wait()方法和notify()/notifyAll()方法要在同步块中被调用"></a>为什么wait()方法和notify()/notifyAll()方法要在同步块中被调用</h3><p>这是JDK强制的，wait()方法和notify()/notifyAll()方法在调用前都必须先获得对象的锁</p>
+<h3 id="wait-方法和notify-notifyAll-方法在放弃对象监视器时有什么区别"><a href="#wait-方法和notify-notifyAll-方法在放弃对象监视器时有什么区别" class="headerlink" title="wait()方法和notify()/notifyAll()方法在放弃对象监视器时有什么区别"></a>wait()方法和notify()/notifyAll()方法在放弃对象监视器时有什么区别</h3><p>wait()方法和notify()/notifyAll()方法在放弃对象监视器的时候的区别在于：wait()方法立即释放对象监视器，notify()/notifyAll()方法则会等待线程剩余代码执行完毕才会放弃对象监视器。</p>
+<h3 id="为什么要使用线程池"><a href="#为什么要使用线程池" class="headerlink" title="为什么要使用线程池"></a>为什么要使用线程池</h3><p>避免频繁地创建和销毁线程，达到线程对象的重用。另外，使用线程池还可以根据项目灵活地控制并发的数目。</p>
+<h3 id="怎么检测一个线程是否持有对象监视器"><a href="#怎么检测一个线程是否持有对象监视器" class="headerlink" title="怎么检测一个线程是否持有对象监视器"></a>怎么检测一个线程是否持有对象监视器</h3><p>我也是在网上看到一道多线程面试题才知道有方法可以判断某个线程是否持有对象监视器：Thread类提供了一个holdsLock(Object obj)方法，当且仅当对象obj的监视器被某条线程持有的时候才会返回true，注意这是一个static方法，这意味着”某条线程”指的是当前线程。</p>
+<h3 id="synchronized和ReentrantLock的区别"><a href="#synchronized和ReentrantLock的区别" class="headerlink" title="synchronized和ReentrantLock的区别"></a>synchronized和ReentrantLock的区别</h3><p>synchronized是和if、else、for、while一样的关键字，ReentrantLock是类，这是二者的本质区别。既然ReentrantLock是类，那么它就提供了比synchronized更多更灵活的特性，可以被继承、可以有方法、可以有各种各样的类变量，ReentrantLock比synchronized的扩展性体现在几点上：</p>
+<ol>
+<li><p>ReentrantLock可以对获取锁的等待时间进行设置，这样就避免了死锁</p>
+</li>
+<li><p>ReentrantLock可以获取各种锁的信息</p>
+</li>
+<li><p>ReentrantLock可以灵活地实现多路通知</p>
+</li>
+</ol>
+<p>另外，二者的锁机制其实也是不一样的。ReentrantLock底层调用的是Unsafe的park方法加锁，synchronized操作的应该是对象头中mark word，这点我不能确定。</p>
+<h3 id="ReadWriteLock是什么"><a href="#ReadWriteLock是什么" class="headerlink" title="ReadWriteLock是什么"></a>ReadWriteLock是什么</h3><p>首先明确一下，不是说ReentrantLock不好，只是ReentrantLock某些时候有局限。如果使用ReentrantLock，可能本身是为了防止线程A在写数据、线程B在读数据造成的数据不一致，但这样，如果线程C在读数据、线程D也在读数据，读数据是不会改变数据的，没有必要加锁，但是还是加锁了，降低了程序的性能。</p>
+<p>因为这个，才诞生了读写锁ReadWriteLock。ReadWriteLock是一个读写锁接口，ReentrantReadWriteLock是ReadWriteLock接口的一个具体实现，实现了读写的分离，读锁是共享的，写锁是独占的，读和读之间不会互斥，读和写、写和读、写和写之间才会互斥，提升了读写的性能。</p>
+<h3 id="FutureTask是什么"><a href="#FutureTask是什么" class="headerlink" title="FutureTask是什么"></a>FutureTask是什么</h3><p>这个其实前面有提到过，FutureTask表示一个异步运算的任务。FutureTask里面可以传入一个Callable的具体实现类，可以对这个异步运算的任务的结果进行等待获取、判断是否已经完成、取消任务等操作。当然，由于FutureTask也是Runnable接口的实现类，所以FutureTask也可以放入线程池中。</p>
+<h3 id="Linux环境下如何查找哪个线程使用CPU最长"><a href="#Linux环境下如何查找哪个线程使用CPU最长" class="headerlink" title="Linux环境下如何查找哪个线程使用CPU最长"></a>Linux环境下如何查找哪个线程使用CPU最长</h3><ol>
+<li><p>获取项目的pid，jps或者ps -ef | grep java，这个前面有讲过</p>
+</li>
+<li><p>top -H -p pid，顺序不能改变</p>
+</li>
+</ol>
+<p>这样就可以打印出当前的项目，每条线程占用CPU时间的百分比。注意这里打出的是LWP，也就是操作系统原生线程的线程号。</p>
+<p>使用”top -H -p pid”+”jps pid”可以很容易地找到某条占用CPU高的线程的线程堆栈，从而定位占用CPU高的原因，一般是因为不当的代码操作导致了死循环。</p>
+<p>最后提一点，”top -H -p pid”打出来的LWP是十进制的，”jps pid”打出来的本地线程号是十六进制的，转换一下，就能定位到占用CPU高的线程的当前线程堆栈了。</p>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><p>１. 两个线程里面分别持有两个Object对象：lock1和lock2。这两个lock作为同步代码块的锁；</p>
+<ol start="2">
+<li>线程1的run()方法中同步代码块先获取lock1的对象锁，Thread.sleep(xxx)，时间不需要太多，50毫秒差不多了，然后接着获取lock2的对象锁。这么做主要是为了防止线程1启动一下子就连续获得了lock1和lock2两个对象的对象锁</li>
+<li>线程2的run)(方法中同步代码块先获取lock2的对象锁，接着获取lock1的对象锁，当然这时lock1的对象锁已经被线程1锁持有，线程2肯定是要等待线程1释放lock1的对象锁的</li>
+</ol>
+<h4 id="避免死锁"><a href="#避免死锁" class="headerlink" title="避免死锁"></a>避免死锁</h4><ol>
+<li>按顺序加锁</li>
+<li>获取锁时限</li>
+<li>死锁检测</li>
+</ol>
+<h3 id="怎么唤醒一个阻塞的线程"><a href="#怎么唤醒一个阻塞的线程" class="headerlink" title="怎么唤醒一个阻塞的线程"></a>怎么唤醒一个阻塞的线程</h3><p>如果线程是因为调用了wait()、sleep()或者join()方法而导致的阻塞，可以中断线程，并且通过抛出InterruptedException来唤醒它；如果线程遇到了IO阻塞，无能为力，因为IO是操作系统实现的，Java代码并没有办法直接接触到操作系统。</p>
+<h3 id="不可变对象对多线程有什么帮助"><a href="#不可变对象对多线程有什么帮助" class="headerlink" title="不可变对象对多线程有什么帮助"></a>不可变对象对多线程有什么帮助</h3><p>前面有提到过的一个问题，不可变对象保证了对象的内存可见性，对不可变对象的读取不需要进行额外的同步手段，提升了代码执行效率。</p>
+<h3 id="什么是多线程的上下文切换"><a href="#什么是多线程的上下文切换" class="headerlink" title="什么是多线程的上下文切换"></a>什么是多线程的上下文切换</h3><p>多线程的上下文切换是指CPU控制权由一个已经正在运行的线程切换到另外一个就绪并等待获取CPU执行权的线程的过程。</p>
+<h3 id="如果你提交任务时，线程池队列已满，这时会发生什么"><a href="#如果你提交任务时，线程池队列已满，这时会发生什么" class="headerlink" title="如果你提交任务时，线程池队列已满，这时会发生什么"></a>如果你提交任务时，线程池队列已满，这时会发生什么</h3><p>这里区分一下：</p>
+<ol>
+<li><p>如果使用的是无界队列LinkedBlockingQueue，也就是无界队列的话，没关系，继续添加任务到阻塞队列中等待执行，因为LinkedBlockingQueue可以近乎认为是一个无穷大的队列，可以无限存放任务</p>
+</li>
+<li><p>如果使用的是有界队列比如ArrayBlockingQueue，任务首先会被添加到ArrayBlockingQueue中，ArrayBlockingQueue满了，会根据maximumPoolSize的值增加线程数量，如果增加了线程数量还是处理不过来，ArrayBlockingQueue继续满，那么则会使用拒绝策略RejectedExecutionHandler处理满了的任务，默认是AbortPolicy</p>
+</li>
+</ol>
+<h3 id="Java中用到的线程调度算法是什么"><a href="#Java中用到的线程调度算法是什么" class="headerlink" title="Java中用到的线程调度算法是什么"></a>Java中用到的线程调度算法是什么</h3><p>抢占式。一个线程用完CPU之后，操作系统会根据线程优先级、线程饥饿情况等数据算出一个总的优先级并分配下一个时间片给某个线程执行。</p>
+<h3 id="Thread-sleep-0-的作用是什么"><a href="#Thread-sleep-0-的作用是什么" class="headerlink" title="Thread.sleep(0)的作用是什么"></a>Thread.sleep(0)的作用是什么</h3><p>这个问题和上面那个问题是相关的。由于Java采用抢占式的线程调度算法，因此可能会出现某条线程常常获取到CPU控制权的情况，为了让某些优先级比较低的线程也能获取到CPU控制权，可以使用Thread.sleep(0)手动触发一次操作系统分配时间片的操作，这也是平衡CPU控制权的一种操作。</p>
+<h3 id="什么是自旋"><a href="#什么是自旋" class="headerlink" title="什么是自旋"></a>什么是自旋</h3><p>很多synchronized里面的代码只是一些很简单的代码，执行时间非常快，此时等待的线程都加锁可能是一种不太值得的操作，因为线程阻塞涉及到用户态和内核态切换的问题。既然synchronized里面的代码执行得非常快，不妨让等待锁的线程不要被阻塞，而是在synchronized的边界做忙循环，这就是自旋。如果做了多次忙循环发现还没有获得锁，再阻塞，这样可能是一种更好的策略。</p>
+<h3 id="什么是Java内存模型"><a href="#什么是Java内存模型" class="headerlink" title="什么是Java内存模型"></a>什么是Java内存模型</h3><p>Java内存模型定义了一种多线程访问Java内存的规范。Java内存模型要完整讲不是这里几句话能说清楚的，我简单总结一下Java内存模型的几部分内容：</p>
+<ol>
+<li><p>Java内存模型将内存分为了<strong>主内存</strong>和<strong>工作内存</strong>。类的状态，也就是类之间共享的变量，是存储在主内存中的，每次Java线程用到这些主内存中的变量的时候，会读一次主内存中的变量，并让这些内存在自己的工作内存中有一份拷贝，运行自己线程代码的时候，用到这些变量，操作的都是自己工作内存中的那一份。在线程代码执行完毕之后，会将最新的值更新到主内存中去</p>
+</li>
+<li><p>定义了几个原子操作，用于操作主内存和工作内存中的变量</p>
+</li>
+<li><p>定义了volatile变量的使用规则</p>
+</li>
+<li><p>happens-before，即先行发生原则，定义了操作A必然先行发生于操作B的一些规则，比如在同一个线程内控制流前面的代码一定先行发生于控制流后面的代码、一个释放锁unlock的动作一定先行发生于后面对于同一个锁进行锁定lock的动作等等，只要符合这些规则，则不需要额外做同步措施，如果某段代码不符合所有的happens-before规则，则这段代码一定是线程非安全的</p>
+</li>
+</ol>
+<h3 id="什么是CAS"><a href="#什么是CAS" class="headerlink" title="什么是CAS"></a>什么是CAS</h3><p>CAS，全称为Compare and Swap，即比较-替换。jdk5增加了并发包java.util.concurrent.*,其下面的类使用CAS算法实现了区别于synchronouse同步锁的一种乐观锁。JDK 5之前Java语言是靠synchronized关键字保证同步的，这是一种独占锁，也是是悲观锁。</p>
+<p>假设有三个操作数：<strong>内存值V、旧的预期值A、要修改的值B，当且仅当预期值A和内存值V相同时，才会将内存值修改为B并返回true，否则什么都不做并返回false</strong>。当然CAS一定要volatile变量配合，这样才能保证每次拿到的变量是主内存中最新的那个值，否则旧的预期值A对某条线程来说，永远是一个不会变的值A，只要某次CAS操作失败，永远都不可能成功。</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI3ODcxMzQzMw==&amp;mid=2247483728&amp;idx=1&amp;sn=3d734dc972a244891406cfbc443eabed&amp;chksm=eb538466dc240d7033b889665b579a490266b8c8f1e7a08da35f67ca484dad19503e8b230e05&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">详细</a></p>
+<h3 id="什么是乐观锁和悲观锁"><a href="#什么是乐观锁和悲观锁" class="headerlink" title="什么是乐观锁和悲观锁"></a>什么是乐观锁和悲观锁</h3><ol>
+<li><p>乐观锁：就像它的名字一样，对于并发间操作产生的线程安全问题持乐观状态，乐观锁认为竞争不总是会发生，因此它不需要持有锁，将比较-替换这两个动作作为一个原子操作尝试去修改内存中的变量，如果失败则表示发生冲突，那么就应该有相应的重试逻辑。</p>
+</li>
+<li><p>悲观锁：还是像它的名字一样，对于并发间操作产生的线程安全问题持悲观状态，悲观锁认为竞争总是会发生，因此每次对某资源进行操作时，都会持有一个独占的锁，就像synchronized，不管三七二十一，直接上了锁就操作资源了。</p>
+</li>
+</ol>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI3ODcxMzQzMw==&amp;mid=2247483753&amp;idx=1&amp;sn=fd09b268d8f374095c4e9e2d627f3305&amp;chksm=eb53845fdc240d4938023e75a207cb29c615d1b5891ae340e85d0754e134af5a8b183b01ae52&amp;scene=21#wechat_redirect" target="_blank" rel="noopener">详细</a></p>
+<h3 id="什么是AQS"><a href="#什么是AQS" class="headerlink" title="什么是AQS"></a>什么是AQS</h3><p>简单说一下AQS，AQS全称为AbstractQueuedSychronizer，翻译过来应该是抽象队列同步器。</p>
+<p>如果说java.util.concurrent的基础是CAS的话，那么AQS就是整个Java并发包的核心了，ReentrantLock、CountDownLatch、Semaphore等等都用到了它。AQS实际上以双向队列的形式连接所有的Entry，比方说ReentrantLock，所有等待的线程都被放在一个Entry中并连成双向队列，前面一个线程使用ReentrantLock好了，则双向队列实际上的第一个Entry开始运行。</p>
+<p>AQS定义了对双向队列所有的操作，而只开放了tryLock和tryRelease方法给开发者使用，开发者可以根据自己的实现重写tryLock和tryRelease方法，以实现自己的并发功能。</p>
+<h3 id="单例模式的线程安全性"><a href="#单例模式的线程安全性" class="headerlink" title="单例模式的线程安全性"></a>单例模式的线程安全性</h3><p>老生常谈的问题了，首先要说的是单例模式的线程安全意味着：某个类的实例在多线程环境下只会被创建一次出来。单例模式有很多种的写法，我总结一下：</p>
+<ol>
+<li>饿汉式单例模式的写法：线程安全</li>
+<li>懒汉式单例模式的写法：非线程安全</li>
+<li>双检锁单例模式的写法：线程安全</li>
+</ol>
+<h3 id="Semaphore有什么作用"><a href="#Semaphore有什么作用" class="headerlink" title="Semaphore有什么作用"></a>Semaphore有什么作用</h3><p>Semaphore就是一个信号量，它的作用是限制某段代码块的并发数。Semaphore有一个构造函数，可以传入一个int型整数n，表示某段代码最多只有n个线程可以访问，如果超出了n，那么请等待，等到某个线程执行完毕这段代码块，下一个线程再进入。由此可以看出如果Semaphore构造函数中传入的int型整数n=1，相当于变成了一个synchronized了。</p>
+<h3 id="Hashtable的size-方法中明明只有一条语句”return-count”，为什么还要做同步？"><a href="#Hashtable的size-方法中明明只有一条语句”return-count”，为什么还要做同步？" class="headerlink" title="Hashtable的size()方法中明明只有一条语句”return count”，为什么还要做同步？"></a>Hashtable的size()方法中明明只有一条语句”return count”，为什么还要做同步？</h3><p>这是我之前的一个困惑，不知道大家有没有想过这个问题。某个方法中如果有多条语句，并且都在操作同一个类变量，那么在多线程环境下不加锁，势必会引发线程安全问题，这很好理解，但是size()方法明明只有一条语句，为什么还要加锁？</p>
+<p>关于这个问题，在慢慢地工作、学习中，有了理解，主要原因有两点：</p>
+<ol>
+<li><p>同一时间只能有一条线程执行固定类的同步方法，但是对于类的非同步方法，可以多条线程同时访问。所以，这样就有问题了，可能线程A在执行Hashtable的put方法添加数据，线程B则可以正常调用size()方法读取Hashtable中当前元素的个数，那读取到的值可能不是最新的，可能线程A添加了完了数据，但是没有对size++，线程B就已经读取size了，那么对于线程B来说读取到的size一定是不准确的。而给size()方法加了同步之后，意味着线程B调用size()方法只有在线程A调用put方法完毕之后才可以调用，这样就保证了线程安全性</p>
+</li>
+<li><p>CPU执行代码，执行的不是Java代码，这点很关键，一定得记住。Java代码最终是被翻译成机器码执行的，机器码才是真正可以和硬件电路交互的代码。即使你看到Java代码只有一行，甚至你看到Java代码编译之后生成的字节码也只有一行，也不意味着对于底层来说这句语句的操作只有一个。一句”return count”假设被翻译成了三句汇编语句执行，一句汇编语句和其机器码做对应，完全可能执行完第一句，线程就切换了。</p>
+</li>
+</ol>
+<h3 id="线程类的构造方法、静态块是被哪个线程调用的"><a href="#线程类的构造方法、静态块是被哪个线程调用的" class="headerlink" title="线程类的构造方法、静态块是被哪个线程调用的"></a>线程类的构造方法、静态块是被哪个线程调用的</h3><p>这是一个非常刁钻和狡猾的问题。请记住：线程类的构造方法、静态块是被new这个线程类所在的线程所调用的，而run方法里面的代码才是被线程自身所调用的。</p>
+<p>如果说上面的说法让你感到困惑，那么我举个例子，假设Thread2中new了Thread1，main函数中new了Thread2，那么：</p>
+<ol>
+<li>Thread2的构造方法、静态块是main线程调用的，Thread2的run()方法是Thread2自己调用的</li>
+<li>Thread1的构造方法、静态块是Thread2调用的，Thread1的run()方法是Thread1自己调用的</li>
+</ol>
+<h3 id="同步方法和同步块，哪个是更好的选择"><a href="#同步方法和同步块，哪个是更好的选择" class="headerlink" title="同步方法和同步块，哪个是更好的选择"></a>同步方法和同步块，哪个是更好的选择</h3><p>同步块，这意味着同步块之外的代码是异步执行的，这比同步整个方法更提升代码的效率。请知道一条原则：同步的范围越小越好。</p>
+<p>借着这一条，我额外提一点，虽说同步的范围越少越好，但是在Java虚拟机中还是存在着一种叫做锁粗化的优化方法，这种方法就是把同步范围变大。这是有用的，比方说StringBuffer，它是一个线程安全的类，自然最常用的append()方法是一个同步方法，我们写代码的时候会反复append字符串，这意味着要进行反复的加锁-&gt;解锁，这对性能不利，因为这意味着Java虚拟机在这条线程上要反复地在内核态和用户态之间进行切换，因此Java虚拟机会将多次append方法调用的代码进行一个锁粗化的操作，将多次的append的操作扩展到append方法的头尾，变成一个大的同步块，这样就减少了加锁–&gt;解锁的次数，有效地提升了代码执行的效率。</p>
+<h3 id="高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？"><a href="#高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？" class="headerlink" title="高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？"></a>高并发、任务执行时间短的业务怎样使用线程池？并发不高、任务执行时间长的业务怎样使用线程池？并发高、业务执行时间长的业务怎样使用线程池？</h3><p>这是我在并发编程网上看到的一个问题，把这个问题放在最后一个，希望每个人都能看到并且思考一下，因为这个问题非常好、非常实际、非常专业。关于这个问题，个人看法是：</p>
+<ol>
+<li>高并发、任务执行时间短的业务，线程池线程数可以设置为CPU核数+1，减少线程上下文的切换</li>
+<li>并发不高、任务执行时间长的业务要区分开看：<ul>
+<li>假如是业务时间长集中在IO操作上，也就是IO密集型的任务，因为IO操作并不占用CPU，所以不要让所有的CPU闲下来，可以加大线程池中的线程数目，让CPU处理更多的业务</li>
+<li>假如是业务时间长集中在计算操作上，也就是计算密集型任务，这个就没办法了，和（1）一样吧，线程池中的线程数设置得少一些，减少线程上下文的切换</li>
+<li>并发高、业务执行时间长，解决这种类型任务的关键不在于线程池而在于整体架构的设计，看看这些业务里面某些数据是否能做缓存是第一步，增加服务器是第二步，至于线程池的设置，设置参考其他有关线程池的文章。最后，业务执行时间长的问题，也可能需要分析一下，看看能不能使用中间件对任务进行拆分和解耦。</li>
+</ul>
+</li>
+</ol>
+</div><div class="tags"></div><div class="post-nav"><a class="pre" href="/2018/08/23/Java基础/">Java基础</a><a class="next" href="/2018/08/21/Java面试/">Java面试</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://joelemon.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/03/数据库基础/">数据库基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/02/CurrentHashMap/">CurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/nginx/">nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/28/Java多线程2/">Java多线程2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/26/Java-Serlet/">Java Serlet</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/23/Java基础/">Java基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/22/Java多线程/">Java多线程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/21/Java面试/">Java面试</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/21/Spting-MVC/">Spting MVC</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/21/Spting-IOC-AOP/">Spting IOC&AOP</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">JoeLemon.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
