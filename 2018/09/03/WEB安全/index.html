@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Java"><title>WEB安全 | JoeLemon</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">WEB安全</h1><a id="logo" href="/.">JoeLemon</a><p class="description">一头程序员的羊皮纸</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">WEB安全</h1><div class="post-meta">Sep 3, 2018</div><div class="post-content"><h1 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h1><p>XSS全称为Cross Site Script，即跨站点脚本攻击。</p>
+<h2 id="反射型漏洞"><a href="#反射型漏洞" class="headerlink" title="反射型漏洞"></a>反射型漏洞</h2><p>这种类型攻击者一般通过在网页中嵌入含有恶意攻击脚本的链接，或者通过发送带脚本的链接给受害者，这个脚本链接是攻击者自己的服务器，用户通过点击该链接就能达到攻击的目的。</p>
+<h2 id="存储型漏洞"><a href="#存储型漏洞" class="headerlink" title="存储型漏洞"></a>存储型漏洞</h2><p>这种类型是影响最为广泛的且危害网站安全自身的攻击方式，攻击者通过上传恶意脚本到网站服务器或保存到数据库中，恶意脚本就会包含在网页中，这样会导致所有浏览该网页的用户有中招的可能。</p>
+<h2 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h2><ul>
+<li>危险字符过滤</li>
+<li>使用http only的cookie<blockquote>
+<p>httpOnly由微软在IE中提出，禁止用户在浏览器中通过脚本访问带有httpOnly的cookie。有了这个特性，如果是用户敏感信息保存在cookie中的，可以通过在cookie加下httpOnly属性避免XSS攻击cookie造成用户信息泄漏。</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="SQL注入"><a href="#SQL注入" class="headerlink" title="SQL注入"></a>SQL注入</h1><p>SQL注入即通过WEB表单域插入非法SQL命令，当服务器端构造SQL时采用拼接形式，非法SQL与正常SQL一并构造并在数据库中执行。</p>
+<h2 id="防御-1"><a href="#防御-1" class="headerlink" title="防御"></a>防御</h2><ul>
+<li>禁止采用SQL拼接的形式，要采用参数化的形式。使用#</li>
+<li>过滤或转义特殊字符</li>
+<li>数据库用户权利最小化</li>
+<li>发生异常不要使用错误回显</li>
+<li>加密存储敏感信息</li>
+</ul>
+<h1 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h1><p>CSRF全称即Cross Site Request forgery，跨站点请求伪造，攻击者通过跨站点进行伪造用户的请求进行合法的非法操作，其攻击手法是通过窃取用户cookie或服务器session获取用户身份，在用户不知情的情况下在攻击者服务器模拟伪造用户真实的请求。</p>
+<ol>
+<li>检查referer<br>referer是http header的请求头属性，标识了请求的来源地址，通过检查这个属性可以判断请求地址是否合法域名。很多网站的防盗链功能就是这么做的，如果不是本站的域名请求就拒绝其链接，或者返回一个不允许在外站显示的公共图片。</li>
+<li>检查表单token<br>在跳转到每个表单时，每次都随机生成一个不固定的token值用于回传验证，所以如果是用户正常提交的话肯定会包含这个值，而这个值不存在cookie中攻击者拿不到这个值，自然提交的请求是不合法的。如果不使用cookie的前提下也可以设置cookie为httpOnly禁止脚本获取到cookie信息。</li>
+<li>检查验证码<br>使用验证码，简单粗暴，判断请求的验证码是否但用户体检会非常差，用户不希望所有的操作都要输入验证码，所以，不是非常重要的环节建议不要使用验证码。</li>
+</ol>
+<h1 id="DOS-DDOS攻击"><a href="#DOS-DDOS攻击" class="headerlink" title="DOS/DDOS攻击"></a>DOS/DDOS攻击</h1><p><a href="http://www.ruanyifeng.com/blog/2018/06/ddos.html" target="_blank" rel="noopener">阮一峰博客</a><br>DOS攻击全称为Denial of service，即拒绝服务，其主要攻击目的是使计算机硬件或网络宽带资源耗尽从而造成服务器无法提供正常服务，而DDOS攻击就是Distributed denial of service，即分布式的拒绝服务攻击，攻击者利用多台服务器资源对同一个目标服务器发起攻击，从而使目的服务器快速陷入崩溃。</p>
+<p>不管是DOS还是DDOS，它们的本质都是通过各种手段消耗目标服务器资源，从而使目标服务器瘫痪不能接受用户的服务。</p>
+<h1 id="DNS攻击"><a href="#DNS攻击" class="headerlink" title="DNS攻击"></a>DNS攻击</h1><p>DNS攻击包括有DNS劫持和DNS污染。</p>
+<p>DNS劫持即通过某种手段控制DNS服务器，篡改域名真实的解析结果，并返回攻击者的ip地址，从而跳到了攻击者的页面。像我们宽带快到期了或者有什么推广信息，电信总会弹出一个营销界面提示我们宽带快到期了或者什么活动的，这其实就是运营商DN劫持搞的鬼。像在我们本地，也经常会配置host文件以开发测试联调，或者访问那些访问不了你又想访问的网址。</p>
+<p>防止DNS劫持可以用国外知名的DNS服务器，像google的8.8.8.8，或者准备两个域名，一个被劫持了引导用户去访问另一个。</p>
+<p>DNS污染发生在请求DNS解析前第一步，直接在协议上对DNS解析请求进行干扰，因为DNS查询是基于不可靠无连接的UDP协议，它是没有经过认证的，很容易被篡改，所以攻击者通过在UDP的53端口进行DNS查询检测，并返回攻击者错误的解析结果给用户，这就是DNS污染。</p>
+<p>DNS污染可以通过自己搭建DNS服务器，采用TCP加密的形式，但可能延迟比较大。</p>
+<h1 id="会话固定攻击漏洞"><a href="#会话固定攻击漏洞" class="headerlink" title="会话固定攻击漏洞"></a>会话固定攻击漏洞</h1><p>会话固定攻击（session fixation attack）是利用应用系统在服务器的会话ID固定不变机制，借助他人用相同的会话ID获取认证和授权，然后利用该会话ID劫持他人的会话以成功冒充他人，造成会话固定攻击。</p>
+<p>整个攻击流程是：<br>1、攻击者Attacker能正常访问该应用网站；<br>2、应用网站服务器返回一个会话ID给他；<br>3、攻击者Attacker用该会话ID构造一个该网站链接发给受害者Victim；<br>4-5、受害者Victim点击该链接，携带攻击者的会话ID和用户名密码正常登录了该网站，会话成功建立；<br>6、攻击者Attacker用该会话ID成功冒充并劫持了受害者Victim的会话。</p>
+<h2 id="防御-2"><a href="#防御-2" class="headerlink" title="防御"></a>防御</h2><ol>
+<li>登录重建会话<br> 每次登录后都重置会话ID，并生成一个新的会话ID，这样攻击者就无法用自己的会话ID来劫持会话，核心代码如下。</li>
+<li>禁用客户端访问Cookie<br> 此方法也避免了配合XSS攻击来获取Cookie中的会话信息以达成会话固定攻击。在Http响应头中启用HttpOnly属性，或者在tomcat容器中配置。关于HttpOnly更多详细说明大家可以自行百度。</li>
+</ol>
+<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h1><h2 id="单向认证"><a href="#单向认证" class="headerlink" title="单向认证"></a>单向认证</h2><p>1、客户端向服务端发送SSL协议版本号、加密算法种类、随机数等信息。<br>2、服务端给客户端返回SSL协议版本号、加密算法种类、随机数等信息，同时也返回服务器端的证书，即公钥证书<br>3、客户端使用服务端返回的信息验证服务器的合法性，包括：</p>
+<ul>
+<li>证书是否过期</li>
+<li>发行服务器证书的CA是否可靠</li>
+<li>返回的公钥是否能正确解开返回证书中的数字签名</li>
+<li>服务器证书上的域名是否和服务器的实际域名相匹配</li>
+<li>验证通过后，将继续进行通信，否则，终止通信<br>4、客户端向服务端发送自己所能支持的对称加密方案，供服务器端进行选择<br>5、服务器端在客户端提供的加密方案中选择加密程度最高的加密方式。<br>6、服务器将选择好的加密方案通过明文方式返回给客户端<br>7、客户端接收到服务端返回的加密方式后，使用该加密方式生成产生随机码，用作通信过程中对称加密的密钥，使用服务端返回的公钥进行加密，将加密后的随机码发送至服务器<br>8、服务器收到客户端返回的加密信息后，使用自己的私钥进行解密，获取对称加密密钥。 在接下来的会话中，服务器和客户端将会使用该密码进行对称加密，保证通信过程中信息的安全。</li>
+</ul>
+<h2 id="双向认证"><a href="#双向认证" class="headerlink" title="双向认证"></a>双向认证</h2><p>1、客户端向服务端发送SSL协议版本号、加密算法种类、随机数等信息。<br>2、服务端给客户端返回SSL协议版本号、加密算法种类、随机数等信息，同时也返回服务器端的证书，即公钥证书<br>3、客户端使用服务端返回的信息验证服务器的合法性，包括：</p>
+<ul>
+<li>证书是否过期</li>
+<li>发型服务器证书的CA是否可靠</li>
+<li>返回的公钥是否能正确解开返回证书中的数字签名</li>
+<li>服务器证书上的域名是否和服务器的实际域名相匹配</li>
+<li>验证通过后，将继续进行通信，否则，终止通信<br>4、服务端要求客户端发送客户端的证书，客户端会将自己的证书发送至服务端<br>5、验证客户端的证书，通过验证后，会获得客户端的公钥<br>6、客户端向服务端发送自己所能支持的对称加密方案，供服务器端进行选择<br>7、服务器端在客户端提供的加密方案中选择加密程度最高的加密方式<br>8、将加密方案通过使用之前获取到的公钥进行加密，返回给客户端<br>9、客户端收到服务端返回的加密方案密文后，使用自己的私钥进行解密，获取具体加密方式，而后，产生该加密方式的随机码，用作加密过程中的密钥，使用之前从服务端证书中获取到的公钥进行加密后，发送给服务端<br>10、服务端收到客户端发送的消息后，使用自己的私钥进行解密，获取对称加密的密钥，在接下来的会话中，服务器和客户端将会使用该密码进行对称加密，保证通信过程中信息的安全。</li>
+</ul>
+</div><div class="tags"></div><div class="post-nav"><a class="next" href="/2018/09/03/分布式知识点/">分布式知识点</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://joelemon.github.io"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/09/03/WEB安全/">WEB安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/03/分布式知识点/">分布式知识点</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/03/数据库基础/">数据库基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/09/02/CurrentHashMap/">CurrentHashMap</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/29/nginx/">nginx</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/28/Java多线程2/">Java多线程2</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/26/Java-Serlet/">Java Serlet</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/23/Java基础/">Java基础</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/22/Java多线程/">Java多线程</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/08/21/Java面试/">Java面试</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">JoeLemon.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
